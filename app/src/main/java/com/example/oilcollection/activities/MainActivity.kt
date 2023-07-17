@@ -18,6 +18,19 @@ class MainActivity : BaseActivity() {
         }
 
         binding?.loginButton?.setOnClickListener {
+            val name = binding?.loginNameEditText?.text.toString()
+            val password = binding?.loginPasswordEditText?.text.toString()
+
+            if (name.isEmpty()) {
+                binding?.loginNameEditText?.error = "Name cannot be empty"
+                return@setOnClickListener
+            }
+
+            if (password.isEmpty()) {
+                binding?.loginPasswordEditText?.error = "Password cannot be empty"
+                return@setOnClickListener
+            }
+
             val intent = Intent(this, DashboardActivity::class.java)
             startActivity(intent)
         }
