@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "128509408041",
+    "project_id": "oilcollection-c6d3f",
+    "storage_bucket": "oilcollection-c6d3f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:128509408041:android:5a07f50821eb982ef3bd38",
+        "android_client_info": {
+          "package_name": "com.example.oilcollection"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "128509408041-t781rp4quv5lqh6k409dmvm2kev18mfm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBayJnX2CHaJFWp_CY2oyHrhIHe-jBumaM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "128509408041-t781rp4quv5lqh6k409dmvm2kev18mfm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

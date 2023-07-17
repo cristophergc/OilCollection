@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="oil_collection_login">40sp</dimen>
+    <dimen name="nav_bar_title_size">28sp</dimen>
+    <dimen name="text_padding_mid_screen">16dp</dimen>
+    <dimen name="text_size_mid_screen">24sp</dimen>
+
+    <dimen name="progress_dialog_content_padding">10dp</dimen>
+    <dimen name="progress_bar_size">100dp</dimen>
+    <dimen name="progress_marginStart">16dp</dimen>
+    <dimen name="progress_text_size">16sp</dimen>
+</resources>

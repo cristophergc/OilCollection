@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white" >
+
+   <ImageView
+       android:layout_width="wrap_content"
+       android:layout_height="500dp"
+       android:src="@drawable/oil_drop1"
+       android:scaleType="centerCrop" />
+
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:layout_gravity="center"
+       android:layout_marginTop="150dp"
+       android:gravity="center"
+       android:orientation="vertical">
+
+      <TextView
+          android:id="@+id/loginTv"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/oil_collection_login"
+          android:textColor="@color/black"
+          android:textSize="@dimen/oil_collection_login"
+          android:textStyle="bold" />
+
+      <EditText
+          android:id="@+id/loginNameEditText"
+          android:layout_width="match_parent"
+          android:layout_height="48dp"
+          android:hint="Name"
+          android:inputType="text"
+          android:layout_marginHorizontal="16dp"
+          android:layout_marginBottom="8dp"
+          android:padding="8dp"
+          android:textColor="@color/black"
+          android:textColorHint="@color/black"
+          android:background="@drawable/edit_text_login_bg" />
+
+      <EditText
+          android:id="@+id/loginPasswordEditText"
+          android:layout_width="match_parent"
+          android:layout_height="48dp"
+          android:hint="Password"
+          android:inputType="textPassword"
+          android:layout_marginBottom="20dp"
+          android:layout_marginHorizontal="16dp"
+          android:padding="8dp"
+          android:textColorHint="@color/black"
+          android:textColor="@color/black"
+          android:background="@drawable/edit_text_login_bg" />
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginHorizontal="16dp">
+
+         <androidx.appcompat.widget.AppCompatButton
+             android:id="@+id/loginButton"
+             android:layout_width="0dp"
+             android:layout_height="wrap_content"
+             android:layout_weight="1"
+             android:layout_marginEnd="4dp"
+             android:text="@string/login"
+             android:textColor="@color/black"
+             android:background="@drawable/button_bg" />
+
+         <androidx.appcompat.widget.AppCompatButton
+             android:id="@+id/signUpButton"
+             android:layout_width="0dp"
+             android:layout_height="wrap_content"
+             android:layout_weight="1"
+             android:layout_marginStart="4dp"
+             android:text="@string/signUp"
+             android:textColor="@color/black"
+             android:background="@drawable/button_bg" />
+
+      </LinearLayout>
+
+   </LinearLayout>
+
+   <ProgressBar
+       android:id="@+id/progressBar"
+       android:layout_width="@dimen/progress_bar_size"
+       android:layout_height="@dimen/progress_bar_size"
+       android:layout_gravity="center"
+       android:indeterminateTint="@color/darkYellow"
+       android:visibility="gone"
+       />
+
+</FrameLayout>
