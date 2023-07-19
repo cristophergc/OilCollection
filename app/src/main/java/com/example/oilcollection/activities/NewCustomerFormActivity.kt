@@ -1,16 +1,23 @@
 package com.example.oilcollection.activities
 
-import android.content.Intent
 import android.os.Bundle
 import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isGone
+import androidx.core.view.isInvisible
+import androidx.core.view.isVisible
 import com.example.oilcollection.databinding.ActivityNewCustomerFormBinding
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 
 class NewCustomerFormActivity : AppCompatActivity() {
 
     private var binding: ActivityNewCustomerFormBinding? = null
-
     private var firstErrorEditText: EditText? = null
+
+    private lateinit var email: String
+    private lateinit var password: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,18 +28,14 @@ class NewCustomerFormActivity : AppCompatActivity() {
         binding?.toolbarNewCustomerForm?.setNavigationOnClickListener { handleBackPressed() }
 
         binding?.signUpButton?.setOnClickListener {
-
             checkInputFieldError()
-
-            if (firstErrorEditText == null) {
-                val intent = Intent(this, DashboardActivity::class.java)
-                startActivity(intent)
-            }
+            registerUser()
         }
     }
 
-    private fun checkInputFieldError(){
+    private fun checkInputFieldError() {
         val name = binding?.etNameSignUp?.text.toString().trimEnd { it <= ' ' }
+        email = binding?.etEmailSignUp?.text.toString().trimEnd { it <= ' ' }
         val address = binding?.etAddressSignUp?.text.toString().trimEnd { it <= ' ' }
         val suburb = binding?.etSuburbSignUp?.text.toString().trimEnd { it <= ' ' }
         val city = binding?.etCitySignUp?.text.toString().trimEnd { it <= ' ' }
@@ -42,7 +45,7 @@ class NewCustomerFormActivity : AppCompatActivity() {
         val mobileNumber = binding?.etMobileNumberSignUp?.text.toString().trim { it <= ' ' }
         val bankAccName = binding?.etBankAccNameSignUp?.text.toString().trimEnd { it <= ' ' }
         val bankAccNumber = binding?.etBankAccNumberSignUp?.text.toString().trimEnd { it <= ' ' }
-        val password = binding?.etPasswordSignUp?.text.toString().trim { it <= ' ' }
+        password = binding?.etPasswordSignUp?.text.toString().trim { it <= ' ' }
         val confirmPassword = binding?.etConfirmPasswordSignUp?.text.toString().trim { it <= ' ' }
 
         val message = "This field cannot be empty"
@@ -109,6 +112,31 @@ class NewCustomerFormActivity : AppCompatActivity() {
             }
         }
         firstErrorEditText?.requestFocus()
+    }
+
+    private fun registerUser() {
+        binding?.svMainForm?.isInvisible
+        binding?.progressBar?.isVisible
+        FirebaseAuth.getInstance()
+            .createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener { task ->
+                binding?.progressBar?.isGone
+                if (task.isSuccessful) {
+                    val firebaseUser: FirebaseUser = task.result!!.user!!
+                    val registeredEmail = firebaseUser.email
+                    Toast.makeText(
+                        this,
+                        "You have successfully registered email $registeredEmail",
+                        Toast.LENGTH_LONG
+                    ).show()
+                    FirebaseAuth.getInstance().signOut()
+                    finish()
+                } else {
+                    Toast.makeText(this, task.exception!!.message, Toast.LENGTH_LONG)
+                        .show()
+                }
+            }
+
     }
 
     private fun handleBackPressed() {
