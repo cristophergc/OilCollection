@@ -8,7 +8,8 @@
         android:layout_width="wrap_content"
         android:layout_height="500dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/oil_drop1" />
+        android:src="@drawable/oil_drop1"
+        android:contentDescription="@string/oil_drop" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -28,17 +29,18 @@
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/loginNameEditText"
+            android:id="@+id/loginEmailEditText"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginHorizontal="16dp"
             android:layout_marginBottom="8dp"
             android:background="@drawable/edit_text_login_bg"
-            android:hint="Name"
-            android:inputType="text"
+            android:hint="@string/user_email_hint"
+            android:inputType="textEmailAddress"
             android:padding="8dp"
             android:textColor="@color/black"
-            android:textColorHint="@color/black" />
+            android:textColorHint="@color/black"
+            android:autofillHints="" />
 
         <EditText
             android:id="@+id/loginPasswordEditText"
@@ -47,11 +49,12 @@
             android:layout_marginHorizontal="16dp"
             android:layout_marginBottom="20dp"
             android:background="@drawable/edit_text_login_bg"
-            android:hint="Password"
+            android:hint="@string/user_password"
             android:inputType="textPassword"
             android:padding="8dp"
             android:textColor="@color/black"
-            android:textColorHint="@color/black" />
+            android:textColorHint="@color/black"
+            android:autofillHints="" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -75,7 +78,7 @@
                 android:layout_marginStart="4dp"
                 android:layout_weight="1"
                 android:background="@drawable/button_bg"
-                android:text="@string/signUp"
+                android:text="@string/sign_up"
                 android:textColor="@color/black" />
 
         </LinearLayout>

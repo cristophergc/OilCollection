@@ -18,11 +18,11 @@ class MainActivity : BaseActivity() {
         }
 
         binding?.loginButton?.setOnClickListener {
-            val name = binding?.loginNameEditText?.text.toString()
+            val name = binding?.loginEmailEditText?.text.toString()
             val password = binding?.loginPasswordEditText?.text.toString()
 
             if (name.isEmpty()) {
-                binding?.loginNameEditText?.error = "Name cannot be empty"
+                binding?.loginEmailEditText?.error = "Name cannot be empty"
                 return@setOnClickListener
             }
 
@@ -35,6 +35,4 @@ class MainActivity : BaseActivity() {
             startActivity(intent)
         }
     }
-
-
 }
