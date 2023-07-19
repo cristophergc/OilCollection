@@ -25,21 +25,43 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
-                android:text="Name:"
+                android:text="@string/shop_name"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/nameEditText"
+                android:id="@+id/et_name_sign_up"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:autofillHints=""
-                android:hint="Shop Name"
+                android:hint="@string/shop_name_hint"
                 android:inputType="textPersonName"
                 android:minHeight="48dp" />
         </LinearLayout>
 
-        <!-- Repeat the same pattern for other fields -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="4dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:text="@string/user_email"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/et_email_sign_up"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints=""
+                android:hint="@string/user_email_hint"
+                android:inputType="textEmailAddress"
+                android:minHeight="48dp" />
+        </LinearLayout>
 
         <!-- Address -->
         <LinearLayout
@@ -52,17 +74,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
-                android:text="Address:"
+                android:text="@string/address"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/addressEditText"
+                android:id="@+id/et_address_sign_up"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:autofillHints=""
-                android:hint="Shop Address"
-                android:inputType="textPostalAddress"
+                android:hint="@string/shop_address"
+                android:inputType="text"
                 android:minHeight="48dp" />
         </LinearLayout>
 
@@ -77,16 +99,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
-                android:text="Suburb:"
+                android:text="@string/suburb"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/suburbEditText"
+                android:id="@+id/et_suburb_sign_up"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:autofillHints=""
-                android:hint="Suburb"
+                android:hint="@string/suburb_hint"
                 android:inputType="text"
                 android:minHeight="48dp" />
         </LinearLayout>
@@ -101,16 +123,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
-                android:text="City:"
+                android:text="@string/city"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/cityEditText"
+                android:id="@+id/et_city_sign_up"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:autofillHints=""
-                android:hint="City"
+                android:hint="@string/city_hint"
                 android:inputType="text"
                 android:minHeight="48dp" />
         </LinearLayout>
@@ -125,16 +147,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
-                android:text="Post code:"
+                android:text="@string/post_code"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/postCodeEditText"
+                android:id="@+id/et_post_code_sign_up"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:autofillHints=""
-                android:hint="Post code"
+                android:hint="@string/post_code_hint"
                 android:inputType="number"
                 android:minHeight="48dp" />
         </LinearLayout>
@@ -149,16 +171,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
-                android:text="Phone:"
+                android:text="@string/phone"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/phoneEditText"
+                android:id="@+id/et_phone_sign_up"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:autofillHints=""
-                android:hint="Shop phone number"
+                android:hint="@string/shop_phone_number"
                 android:inputType="phone"
                 android:minHeight="48dp" />
         </LinearLayout>
@@ -173,16 +195,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
-                android:text="Contact person:"
+                android:text="@string/contact_person"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/contactPersonEditText"
+                android:id="@+id/et_contact_sign_up"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:autofillHints=""
-                android:hint="Contact person"
+                android:hint="@string/contact_person_hint"
                 android:inputType="text"
                 android:minHeight="48dp" />
         </LinearLayout>
@@ -197,16 +219,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
-                android:text="Mobile number:"
+                android:text="@string/mobile_number"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/mobileNumberEditText"
+                android:id="@+id/et_mobile_number_sign_up"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:autofillHints=""
-                android:hint="Mobile number"
+                android:hint="@string/mobile_number_hint"
                 android:inputType="phone"
                 android:minHeight="48dp" />
         </LinearLayout>
@@ -221,16 +243,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
-                android:text="Bank account name:"
+                android:text="@string/bank_account_name"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/bankAccountNameEditText"
+                android:id="@+id/et_bank_acc_name_sign_up"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:autofillHints=""
-                android:hint="Enter name here"
+                android:hint="@string/enter_name_here"
                 android:inputType="text"
                 android:minHeight="48dp"
                 android:padding="8dp" />
@@ -246,16 +268,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
-                android:text="Bank account number:"
+                android:text="@string/bank_account_number"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/bankAccountNumberEditText"
+                android:id="@+id/et_bank_acc_number_sign_up"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:autofillHints=""
-                android:hint="Bank account number"
+                android:hint="@string/bank_account_number_hint"
                 android:inputType="numberSigned"
                 android:minHeight="48dp" />
 
@@ -271,16 +293,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
-                android:text="Password:"
+                android:text="@string/password_form"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/passwordEditText"
+                android:id="@+id/et_password_sign_up"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:autofillHints=""
-                android:hint="Password"
+                android:hint="@string/user_password"
                 android:inputType="textPassword"
                 android:minHeight="48dp"
                 android:padding="8dp" />
@@ -296,28 +318,28 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
-                android:text="Confirme Password:"
+                android:text="@string/confirm_password"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/confirmPasswordEditText"
+                android:id="@+id/et_confirm_password_sign_up"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:autofillHints=""
-                android:hint="Password"
+                android:hint="@string/user_password"
                 android:inputType="textPassword"
                 android:padding="8dp" />
         </LinearLayout>
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/signUpButton"
+            android:id="@+id/sign_up_button"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="16dp"
             android:background="@drawable/button_bg"
-            android:text="@string/signUp"
+            android:text="@string/sign_up"
             android:textColor="@color/black" />
     </LinearLayout>
 </ScrollView>
