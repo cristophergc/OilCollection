@@ -7,111 +7,150 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isGone
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
-import com.example.oilcollection.databinding.ActivityNewCustomerFormBinding
+import com.example.oilcollection.databinding.ActivitySignUpBinding
+import com.example.oilcollection.firebase.Database
+import com.example.oilcollection.models.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 
-class NewCustomerFormActivity : AppCompatActivity() {
+class SignUpActivity : AppCompatActivity() {
 
-    private var binding: ActivityNewCustomerFormBinding? = null
+    private var binding: ActivitySignUpBinding? = null
     private var firstErrorEditText: EditText? = null
 
+    private lateinit var name: String
     private lateinit var email: String
+    private lateinit var address: String
+    private lateinit var suburb: String
+    private lateinit var city: String
+    private lateinit var postCode: String
+    private lateinit var phone: String
+    private lateinit var contactPerson: String
+    private lateinit var mobileNumber: String
+    private lateinit var bankAccName: String
+    private lateinit var bankAccNumber: String
     private lateinit var password: String
+    private lateinit var confirmPassword: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityNewCustomerFormBinding.inflate(layoutInflater)
+        binding = ActivitySignUpBinding.inflate(layoutInflater)
         setContentView(binding?.root)
         setSupportActionBar(binding?.toolbarNewCustomerForm)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         binding?.toolbarNewCustomerForm?.setNavigationOnClickListener { handleBackPressed() }
 
         binding?.signUpButton?.setOnClickListener {
-            checkInputFieldError()
-            registerUser()
+            checkInputFieldEmpty()
         }
     }
 
-    private fun checkInputFieldError() {
-        val name = binding?.etNameSignUp?.text.toString().trimEnd { it <= ' ' }
+    private fun checkInputFieldEmpty() {
+        name = binding?.etNameSignUp?.text.toString().trimEnd { it <= ' ' }
         email = binding?.etEmailSignUp?.text.toString().trimEnd { it <= ' ' }
-        val address = binding?.etAddressSignUp?.text.toString().trimEnd { it <= ' ' }
-        val suburb = binding?.etSuburbSignUp?.text.toString().trimEnd { it <= ' ' }
-        val city = binding?.etCitySignUp?.text.toString().trimEnd { it <= ' ' }
-        val postCode = binding?.etPostCodeSignUp?.text.toString().trimEnd { it <= ' ' }
-        val phone = binding?.etPhoneSignUp?.text.toString().trim { it <= ' ' }
-        val contactPerson = binding?.etContactSignUp?.text.toString().trimEnd { it <= ' ' }
-        val mobileNumber = binding?.etMobileNumberSignUp?.text.toString().trim { it <= ' ' }
-        val bankAccName = binding?.etBankAccNameSignUp?.text.toString().trimEnd { it <= ' ' }
-        val bankAccNumber = binding?.etBankAccNumberSignUp?.text.toString().trimEnd { it <= ' ' }
+        address = binding?.etAddressSignUp?.text.toString().trimEnd { it <= ' ' }
+        suburb = binding?.etSuburbSignUp?.text.toString().trimEnd { it <= ' ' }
+        city = binding?.etCitySignUp?.text.toString().trimEnd { it <= ' ' }
+        postCode = binding?.etPostCodeSignUp?.text.toString().trimEnd { it <= ' ' }
+        phone = binding?.etPhoneSignUp?.text.toString().trim { it <= ' ' }
+        contactPerson = binding?.etContactSignUp?.text.toString().trimEnd { it <= ' ' }
+        mobileNumber = binding?.etMobileNumberSignUp?.text.toString().trim { it <= ' ' }
+        bankAccName = binding?.etBankAccNameSignUp?.text.toString().trimEnd { it <= ' ' }
+        bankAccNumber = binding?.etBankAccNumberSignUp?.text.toString().trimEnd { it <= ' ' }
         password = binding?.etPasswordSignUp?.text.toString().trim { it <= ' ' }
-        val confirmPassword = binding?.etConfirmPasswordSignUp?.text.toString().trim { it <= ' ' }
+        confirmPassword = binding?.etConfirmPasswordSignUp?.text.toString().trim { it <= ' ' }
 
         val message = "This field cannot be empty"
+        val passwordMatchingMessage = "The password does not match. Please try again"
+        var hasError = false
 
         when {
             name.isEmpty() -> {
                 binding?.etNameSignUp?.error = message
                 firstErrorEditText = binding?.etNameSignUp
+                hasError = true
             }
 
             address.isEmpty() -> {
                 binding?.etAddressSignUp?.error = message
                 firstErrorEditText = binding?.etAddressSignUp
+                hasError = true
             }
 
             suburb.isEmpty() -> {
                 binding?.etSuburbSignUp?.error = message
                 firstErrorEditText = binding?.etSuburbSignUp
+                hasError = true
             }
 
             city.isEmpty() -> {
                 binding?.etCitySignUp?.error = message
                 firstErrorEditText = binding?.etCitySignUp
+                hasError = true
             }
 
             postCode.isEmpty() -> {
                 binding?.etPostCodeSignUp?.error = message
                 firstErrorEditText = binding?.etPostCodeSignUp
+                hasError = true
             }
 
             phone.isEmpty() -> {
                 binding?.etPhoneSignUp?.error = message
                 firstErrorEditText = binding?.etPhoneSignUp
+                hasError = true
             }
 
             contactPerson.isEmpty() -> {
                 binding?.etContactSignUp?.error = message
                 firstErrorEditText = binding?.etContactSignUp
+                hasError = true
             }
 
             mobileNumber.isEmpty() -> {
                 binding?.etMobileNumberSignUp?.error = message
                 firstErrorEditText = binding?.etMobileNumberSignUp
+                hasError = true
             }
 
             bankAccName.isEmpty() -> {
                 binding?.etBankAccNameSignUp?.error = message
                 firstErrorEditText = binding?.etBankAccNameSignUp
+                hasError = true
             }
 
             bankAccNumber.isEmpty() -> {
                 binding?.etBankAccNumberSignUp?.error = message
                 firstErrorEditText = binding?.etBankAccNumberSignUp
+                hasError = true
             }
 
             password.isEmpty() -> {
                 binding?.etPasswordSignUp?.error = message
                 firstErrorEditText = binding?.etPasswordSignUp
+                hasError = true
             }
 
             confirmPassword.isEmpty() -> {
                 binding?.etConfirmPasswordSignUp?.error = message
                 firstErrorEditText = binding?.etConfirmPasswordSignUp
+                hasError = true
             }
         }
+
+        if (password != confirmPassword) {
+            binding?.etConfirmPasswordSignUp?.error = passwordMatchingMessage
+            firstErrorEditText = binding?.etConfirmPasswordSignUp
+            hasError = true
+        }
+
         firstErrorEditText?.requestFocus()
+
+        if (hasError) {
+            return
+        }
+
+        registerUser()
     }
 
     private fun registerUser() {
@@ -120,23 +159,41 @@ class NewCustomerFormActivity : AppCompatActivity() {
         FirebaseAuth.getInstance()
             .createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
-                binding?.progressBar?.isGone
                 if (task.isSuccessful) {
                     val firebaseUser: FirebaseUser = task.result!!.user!!
-                    val registeredEmail = firebaseUser.email
-                    Toast.makeText(
-                        this,
-                        "You have successfully registered email $registeredEmail",
-                        Toast.LENGTH_LONG
-                    ).show()
-                    FirebaseAuth.getInstance().signOut()
-                    finish()
+                    val registeredEmail = firebaseUser.email!!
+                    val user = User(firebaseUser.uid,
+                        name,
+                        registeredEmail,
+                        address,
+                        suburb,
+                        city,
+                        postCode.toInt(),
+                        phone.toLong(),
+                        mobileNumber.toLong(),
+                        bankAccName,
+                        bankAccNumber.toLong(),
+                        contactPerson,
+                        password
+                    )
+                    Database().registerUser(this, user)
                 } else {
                     Toast.makeText(this, task.exception!!.message, Toast.LENGTH_LONG)
                         .show()
                 }
             }
 
+    }
+
+    fun userRegisteredSuccess(){
+        Toast.makeText(
+            this,
+            "You have successfully registered",
+            Toast.LENGTH_LONG
+        ).show()
+        binding?.progressBar?.isGone
+        FirebaseAuth.getInstance().signOut()
+        finish()
     }
 
     private fun handleBackPressed() {

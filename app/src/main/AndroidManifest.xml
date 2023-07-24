@@ -29,7 +29,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/CustomNoActionBarTheme" />
         <activity
-            android:name=".activities.NewCustomerFormActivity"
+            android:name=".activities.SignUpActivity"
             android:exported="false"
             android:label="SIGN UP"
             android:screenOrientation="portrait"
