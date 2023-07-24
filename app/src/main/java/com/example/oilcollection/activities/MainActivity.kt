@@ -25,7 +25,7 @@ class MainActivity : BaseActivity() {
         auth = Firebase.auth
 
         binding?.signUpButton?.setOnClickListener {
-            val intent = Intent(this, NewCustomerFormActivity::class.java)
+            val intent = Intent(this, SignUpActivity::class.java)
             startActivity(intent)
         }
 
@@ -56,7 +56,7 @@ class MainActivity : BaseActivity() {
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d("Sign in", "signInWithEmail:success")
-                    val user = auth.currentUser
+//                    val user = auth.currentUser
                     val intent = Intent(this, DashboardActivity::class.java)
                     startActivity(intent)
                 } else {
