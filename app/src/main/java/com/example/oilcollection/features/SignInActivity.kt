@@ -1,4 +1,4 @@
-package com.example.oilcollection.activities
+package com.example.oilcollection.features
 
 import android.content.Intent
 import android.os.Bundle
@@ -12,7 +12,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
-class MainActivity : BaseActivity() {
+class SignInActivity : BaseActivity() {
     private var binding: ActivityMainBinding? = null
     private lateinit var email: String
     private lateinit var password: String

@@ -1,7 +1,7 @@
 package com.example.oilcollection.firebase
 
 import android.util.Log
-import com.example.oilcollection.activities.SignUpActivity
+import com.example.oilcollection.features.SignUpActivity
 import com.example.oilcollection.models.User
 import com.example.oilcollection.utils.Constants
 import com.google.firebase.auth.FirebaseAuth

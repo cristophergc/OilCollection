@@ -12,7 +12,7 @@
         android:theme="@style/CustomNoActionBarTheme"
         tools:targetApi="31">
         <activity
-            android:name=".activities.SplashActivity"
+            android:name=".features.SplashActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/CustomNoActionBarThemeSplash">
@@ -23,19 +23,19 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.DashboardActivity"
+            android:name=".features.DashboardActivity"
             android:exported="false"
             android:label="DASHBOARD"
             android:screenOrientation="portrait"
             android:theme="@style/CustomNoActionBarTheme" />
         <activity
-            android:name=".activities.SignUpActivity"
+            android:name=".features.SignUpActivity"
             android:exported="false"
             android:label="SIGN UP"
             android:screenOrientation="portrait"
             android:theme="@style/CustomNoActionBarTheme" />
         <activity
-            android:name=".activities.MainActivity"
+            android:name=".features.SignInActivity"
             android:exported="false"
             android:theme="@style/AppTheme.Splash" />
 

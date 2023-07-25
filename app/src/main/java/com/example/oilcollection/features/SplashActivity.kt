@@ -1,4 +1,4 @@
-package com.example.oilcollection.activities
+package com.example.oilcollection.features
 
 import android.content.Intent
 import android.os.Build
@@ -33,7 +33,7 @@ class SplashActivity : AppCompatActivity() {
 
         splashJob = CoroutineScope(Dispatchers.Main).launch {
             delay(SPLASH_SCREEN_TIMEOUT)
-            startActivity(Intent(this@SplashActivity, MainActivity::class.java))
+            startActivity(Intent(this@SplashActivity, SignInActivity::class.java))
             finish()
         }
     }
