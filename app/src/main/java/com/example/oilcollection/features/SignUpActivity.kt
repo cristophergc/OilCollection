@@ -3,12 +3,13 @@ package com.example.oilcollection.features
 import android.os.Bundle
 import android.widget.EditText
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isGone
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
-import androidx.lifecycle.ViewModel
 import com.example.oilcollection.databinding.ActivitySignUpBinding
+import com.example.oilcollection.features.model.UserDetails
 import com.example.oilcollection.firebase.Database
 import com.example.oilcollection.models.User
 import com.google.firebase.auth.FirebaseAuth
@@ -17,7 +18,7 @@ import com.google.firebase.auth.FirebaseUser
 class SignUpActivity : AppCompatActivity() {
 
     private var binding: ActivitySignUpBinding? = null
-    private val viewModel: ViewModel = SignUpViewModel()
+    private val viewModel by viewModels<SignUpViewModel>()
     private var firstErrorEditText: EditText? = null
 
     private lateinit var name: String
@@ -152,42 +153,31 @@ class SignUpActivity : AppCompatActivity() {
             return
         }
 
-        registerUser()
+        val userDetails = UserDetails(
+            name,
+            email,
+            address,
+            suburb,
+            city,
+            postCode.toInt(),
+            phone.toLong(),
+            mobileNumber.toLong(),
+            bankAccName,
+            bankAccNumber.toLong(),
+            contactPerson,
+            password
+        )
+        registerUser(userDetails)
     }
 
     private fun setupObservers(){
-        viewModel
+        viewModel.screenState
     }
 
-    private fun registerUser() {
+    private fun registerUser(userDetails: UserDetails) {
         binding?.svMainForm?.isInvisible
         binding?.progressBar?.isVisible
-        FirebaseAuth.getInstance()
-            .createUserWithEmailAndPassword(email, password)
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    val firebaseUser: FirebaseUser = task.result!!.user!!
-                    val registeredEmail = firebaseUser.email!!
-                    val user = User(firebaseUser.uid,
-                        name,
-                        registeredEmail,
-                        address,
-                        suburb,
-                        city,
-                        postCode.toInt(),
-                        phone.toLong(),
-                        mobileNumber.toLong(),
-                        bankAccName,
-                        bankAccNumber.toLong(),
-                        contactPerson,
-                        password
-                    )
-                    Database().registerUser(this, user)
-                } else {
-                    Toast.makeText(this, task.exception!!.message, Toast.LENGTH_LONG)
-                        .show()
-                }
-            }
+        viewModel.registerUser(userDetails)
 
     }
 
