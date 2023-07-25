@@ -1,4 +1,4 @@
-package com.example.oilcollection.activities
+package com.example.oilcollection.features
 
 import android.os.Bundle
 import android.widget.EditText
@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isGone
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
+import androidx.lifecycle.ViewModel
 import com.example.oilcollection.databinding.ActivitySignUpBinding
 import com.example.oilcollection.firebase.Database
 import com.example.oilcollection.models.User
@@ -16,6 +17,7 @@ import com.google.firebase.auth.FirebaseUser
 class SignUpActivity : AppCompatActivity() {
 
     private var binding: ActivitySignUpBinding? = null
+    private val viewModel: ViewModel = SignUpViewModel()
     private var firstErrorEditText: EditText? = null
 
     private lateinit var name: String
@@ -151,6 +153,10 @@ class SignUpActivity : AppCompatActivity() {
         }
 
         registerUser()
+    }
+
+    private fun setupObservers(){
+        viewModel
     }
 
     private fun registerUser() {

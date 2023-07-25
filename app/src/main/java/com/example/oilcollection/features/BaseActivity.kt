@@ -1,4 +1,4 @@
-package com.example.oilcollection.activities
+package com.example.oilcollection.features
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
