@@ -2,11 +2,12 @@ package com.example.oilcollection.features
 
 import android.content.Intent
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.WindowInsets
 import android.view.WindowManager
+import androidx.appcompat.app.AppCompatActivity
 import com.example.oilcollection.R
+import com.example.oilcollection.firebase.Database
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -32,8 +33,13 @@ class SplashActivity : AppCompatActivity() {
         }
 
         splashJob = CoroutineScope(Dispatchers.Main).launch {
+            val currentUserId = Database().getCurrentUserId()
             delay(SPLASH_SCREEN_TIMEOUT)
-            startActivity(Intent(this@SplashActivity, SignInActivity::class.java))
+            if (currentUserId.isNotEmpty()) {
+                startActivity(Intent(this@SplashActivity, DashboardActivity::class.java))
+            } else {
+                startActivity(Intent(this@SplashActivity, SignInActivity::class.java))
+            }
             finish()
         }
     }
