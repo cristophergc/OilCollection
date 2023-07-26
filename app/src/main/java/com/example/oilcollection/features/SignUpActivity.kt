@@ -1,19 +1,19 @@
 package com.example.oilcollection.features
 
 import android.os.Bundle
+import android.view.View
 import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isGone
-import androidx.core.view.isInvisible
-import androidx.core.view.isVisible
 import com.example.oilcollection.databinding.ActivitySignUpBinding
 import com.example.oilcollection.features.model.UserDetails
 import com.example.oilcollection.firebase.Database
 import com.example.oilcollection.models.User
+import com.google.android.gms.tasks.Task
+import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 
 class SignUpActivity : AppCompatActivity() {
 
@@ -46,6 +46,7 @@ class SignUpActivity : AppCompatActivity() {
         binding?.signUpButton?.setOnClickListener {
             checkInputFieldEmpty()
         }
+        setupObservers()
     }
 
     private fun checkInputFieldEmpty() {
@@ -170,18 +171,40 @@ class SignUpActivity : AppCompatActivity() {
         registerUser(userDetails)
     }
 
-    private fun setupObservers(){
-        viewModel.screenState
+    private fun setupObservers() {
+        viewModel.screenState.observe(this) { screenState ->
+            with(binding) {
+                when (screenState) {
+                    is SignUpScreenState.OnRegisterUserSubmitError -> {
+                        errorMessage(screenState.task)
+                    }
+
+                    is SignUpScreenState.OnRegisterUserSubmitSuccessful -> {
+                        submitToDatabase(screenState.user)
+                    }
+                }
+            }
+
+        }
     }
 
     private fun registerUser(userDetails: UserDetails) {
-        binding?.svMainForm?.isInvisible
-        binding?.progressBar?.isVisible
+        binding?.svMainForm?.visibility = View.INVISIBLE
+        binding?.progressBar?.visibility = View.VISIBLE
         viewModel.registerUser(userDetails)
 
     }
 
-    fun userRegisteredSuccess(){
+    private fun submitToDatabase(user: User) {
+        Database().registerUser(this, user)
+    }
+
+    private fun errorMessage(task: Task<AuthResult>) {
+        Toast.makeText(this, task.exception!!.message, Toast.LENGTH_LONG)
+            .show()
+    }
+
+    fun userRegisteredSuccess() {
         Toast.makeText(
             this,
             "You have successfully registered",
