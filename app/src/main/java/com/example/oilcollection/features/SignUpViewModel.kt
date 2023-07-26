@@ -1,25 +1,24 @@
 package com.example.oilcollection.features
 
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.oilcollection.features.model.UserDetails
-import com.example.oilcollection.firebase.Database
 import com.example.oilcollection.models.User
+import com.google.android.gms.tasks.Task
+import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 
 sealed class SignUpScreenState {
-
+    data class OnRegisterUserSubmitSuccessful(val user: User) : SignUpScreenState()
+    data class OnRegisterUserSubmitError(val task: Task<AuthResult>) : SignUpScreenState()
 }
 
-class SignUpViewModel(): ViewModel() {
+class SignUpViewModel() : ViewModel() {
 
     private val _screenState = MutableLiveData<SignUpScreenState>()
     val screenState: LiveData<SignUpScreenState> = _screenState
-
-    fun test(){}
 
     fun registerUser(userDetails: UserDetails) {
         FirebaseAuth.getInstance()
@@ -28,25 +27,25 @@ class SignUpViewModel(): ViewModel() {
                 if (task.isSuccessful) {
                     val firebaseUser: FirebaseUser = task.result!!.user!!
                     val registeredEmail = firebaseUser.email!!
-                    val user = User(firebaseUser.uid,
+                    val user = User(
+                        firebaseUser.uid,
                         userDetails.name,
                         registeredEmail,
                         userDetails.address,
                         userDetails.suburb,
                         userDetails.city,
-                        userDetails.postCode.toInt(),
-                        userDetails.phone.toLong(),
-                        userDetails.mobileNumber.toLong(),
+                        userDetails.postCode,
+                        userDetails.phone,
+                        userDetails.mobileNumber,
                         userDetails.bankAccName,
-                        userDetails.bankAccNumber.toLong(),
+                        userDetails.bankAccNumber,
                         userDetails.contactPerson,
                         userDetails.password
                     )
-                    Database().registerUser(this, user)
+                    _screenState.value = SignUpScreenState.OnRegisterUserSubmitSuccessful(user)
+
                 } else {
-                    _screenState.value = Error
-                    Toast.makeText(this, task.exception!!.message, Toast.LENGTH_LONG)
-                        .show()
+                    _screenState.value = SignUpScreenState.OnRegisterUserSubmitError(task)
                 }
             }
     }
