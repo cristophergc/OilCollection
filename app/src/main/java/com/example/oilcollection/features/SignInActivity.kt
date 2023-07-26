@@ -3,11 +3,10 @@ package com.example.oilcollection.features
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
-import androidx.core.view.isGone
-import androidx.core.view.isInvisible
-import androidx.core.view.isVisible
 import com.example.oilcollection.databinding.ActivityMainBinding
+import com.example.oilcollection.models.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -42,17 +41,17 @@ class SignInActivity : BaseActivity() {
                 binding?.etPasswordLogin?.error = "Password cannot be empty"
                 return@setOnClickListener
             }
-            loginRegisteredUser()
+            signInRegisteredUser()
         }
     }
 
-    private fun loginRegisteredUser() {
-        binding?.ivMainImage?.isInvisible
-        binding?.loginContainer?.isInvisible
-        binding?.progressBar?.isVisible
+    private fun signInRegisteredUser() {
+        binding?.ivMainImage?.visibility = View.INVISIBLE
+        binding?.loginContainer?.visibility = View.INVISIBLE
+        binding?.progressBar?.visibility = View.VISIBLE
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
-                binding?.progressBar?.isGone
+                binding?.progressBar?.visibility = View.INVISIBLE
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d("Sign in", "signInWithEmail:success")
@@ -69,6 +68,13 @@ class SignInActivity : BaseActivity() {
                     ).show()
                 }
             }
+    }
+
+    fun signInSuccessful(user: User) {
+        binding?.progressBar?.visibility = View.INVISIBLE
+        val intent = Intent(this, DashboardActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 
 }

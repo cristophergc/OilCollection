@@ -1,6 +1,7 @@
 package com.example.oilcollection.firebase
 
 import android.util.Log
+import com.example.oilcollection.features.SignInActivity
 import com.example.oilcollection.features.SignUpActivity
 import com.example.oilcollection.models.User
 import com.example.oilcollection.utils.Constants
@@ -24,8 +25,29 @@ class Database {
             }
     }
 
-    private fun getCurrentUserId(): String {
-        return FirebaseAuth.getInstance().currentUser!!.uid
+    fun signInUser(activity: SignInActivity) {
+        mDatabase.collection(Constants.USERS)
+            .document(getCurrentUserId())
+            .get()
+            .addOnSuccessListener { document ->
+                val loggedInUser = document.toObject(User::class.java)
+                if (loggedInUser != null) {
+                    activity.signInSuccessful(loggedInUser)
+                }
+            }
+            .addOnFailureListener {
+                Log.e(activity.javaClass.simpleName, "Error registering the user")
+            }
+    }
+
+    fun getCurrentUserId(): String {
+
+        val currentUser = FirebaseAuth.getInstance().currentUser
+        var currentUserId = ""
+        if (currentUser != null) {
+            currentUserId = currentUser.uid
+        }
+        return currentUserId
     }
 
 }
