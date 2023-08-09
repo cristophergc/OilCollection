@@ -34,4 +34,12 @@
     <string name="bank_account_number_hint">Bank account number</string>
     <string name="password_form">Password:</string>
     <string name="confirm_password">Confirm Password:</string>
+
+    <string name="nav_my_profile">My profile</string>
+    <string name="nav_sign_out">Sign Out</string>
+    <string name="image_content_description">Image</string>
+
+    <string name="nav_open">Open</string>
+    <string name="nav_close">Close</string>
+
 </resources>
