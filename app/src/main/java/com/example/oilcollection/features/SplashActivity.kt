@@ -1,10 +1,13 @@
 package com.example.oilcollection.features
 
+import android.content.Context
 import android.content.Intent
+import android.hardware.input.InputManager
 import android.os.Build
 import android.os.Bundle
 import android.view.WindowInsets
 import android.view.WindowManager
+import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import com.example.oilcollection.R
 import com.example.oilcollection.firebase.Database
@@ -33,6 +36,8 @@ class SplashActivity : AppCompatActivity() {
         }
 
         splashJob = CoroutineScope(Dispatchers.Main).launch {
+            val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            inputMethodManager.hideSoftInputFromWindow(currentFocus?.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
             val currentUserId = Database().getCurrentUserId()
             delay(SPLASH_SCREEN_TIMEOUT)
             if (currentUserId.isNotEmpty()) {
