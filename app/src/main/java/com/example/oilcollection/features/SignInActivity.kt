@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import com.example.oilcollection.databinding.ActivityMainBinding
+import com.example.oilcollection.firebase.Database
 import com.example.oilcollection.models.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -53,9 +54,7 @@ class SignInActivity : BaseActivity() {
             .addOnCompleteListener(this) { task ->
                 binding?.progressBar?.visibility = View.INVISIBLE
                 if (task.isSuccessful) {
-                    // Sign in success, update UI with the signed-in user's information
-                    Log.d("Sign in", "signInWithEmail:success")
-//                    val user = auth.currentUser
+                    Database().signInUser(this@SignInActivity)
                     val intent = Intent(this, DashboardActivity::class.java)
                     startActivity(intent)
                 } else {
