@@ -17,5 +17,23 @@ data class UserDetails(
     val password: String = "",
     val confirmPassword: String = "",
     val fcmToken: String = ""
-
 )
+
+fun UserDetails.toMap(): Map<String, Any> {
+    return mapOf(
+        "name" to name,
+        "email" to email,
+        "address" to address,
+        "suburb" to suburb,
+        "city" to city,
+        "postCode" to postCode,
+        "phone" to phone,
+        "mobileNumber" to mobileNumber,
+        "bankAccName" to bankAccName,
+        "bankAccNumber" to bankAccNumber,
+        "contactPerson" to contactPerson,
+        "password" to password,
+        "confirmPassword" to confirmPassword,
+        "fcmToken" to fcmToken
+    )
+}

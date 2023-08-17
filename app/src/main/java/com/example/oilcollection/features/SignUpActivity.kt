@@ -182,6 +182,7 @@ class SignUpActivity : AppCompatActivity() {
                     is SignUpScreenState.OnRegisterUserSubmitSuccessful -> {
                         submitToDatabase(screenState.user)
                     }
+                    else -> Unit
                 }
             }
 

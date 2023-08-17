@@ -40,6 +40,10 @@ class DashboardActivity : AppCompatActivity() {
         val navigationView: NavigationView = findViewById(R.id.nav_view)
         navigationView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
+                R.id.nav_my_profile -> {
+                    val intent = Intent(this, MyProfileActivity::class.java)
+                    startActivity(intent)
+                }
                 R.id.nav_sign_out -> {
                     FirebaseAuth.getInstance().signOut()
                     val intent = Intent(this, SignInActivity::class.java)

@@ -54,7 +54,7 @@ class SignInActivity : BaseActivity() {
             .addOnCompleteListener(this) { task ->
                 binding?.progressBar?.visibility = View.INVISIBLE
                 if (task.isSuccessful) {
-                    Database().signInUser(this@SignInActivity)
+                    Database().loadUserData(this@SignInActivity)
                     val intent = Intent(this, DashboardActivity::class.java)
                     startActivity(intent)
                 } else {
