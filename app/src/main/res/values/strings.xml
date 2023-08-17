@@ -3,6 +3,7 @@
     <string name="oil_collection_login">Oil Collection</string>
     <string name="login">Login</string>
     <string name="sign_up">Sign Up</string>
+    <string name="update">Update</string>
     <string name="request_collection">Request Collection</string>
     <string name="book_collection">Book Collection</string>
     <string name="dashboard_collection_tittle">Click the button below to request an oil or fat collection</string>
