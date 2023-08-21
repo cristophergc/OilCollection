@@ -18,7 +18,7 @@ import com.google.firebase.auth.FirebaseAuth
 class SignUpActivity : AppCompatActivity() {
 
     private var binding: ActivitySignUpBinding? = null
-    private val viewModel by viewModels<SignUpViewModel>()
+    private val viewModel by viewModels<BaseViewModel>()
     private var firstErrorEditText: EditText? = null
 
     private lateinit var name: String
@@ -175,11 +175,11 @@ class SignUpActivity : AppCompatActivity() {
         viewModel.screenState.observe(this) { screenState ->
             with(binding) {
                 when (screenState) {
-                    is SignUpScreenState.OnRegisterUserSubmitError -> {
+                    is BaseScreenState.OnRegisterUserSubmitError -> {
                         errorMessage(screenState.task)
                     }
 
-                    is SignUpScreenState.OnRegisterUserSubmitSuccessful -> {
+                    is BaseScreenState.OnRegisterUserSubmitSuccessful -> {
                         submitToDatabase(screenState.user)
                     }
                     else -> Unit

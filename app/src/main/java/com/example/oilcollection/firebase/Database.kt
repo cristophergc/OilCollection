@@ -3,6 +3,8 @@ package com.example.oilcollection.firebase
 import android.app.Activity
 import android.content.ContentValues.TAG
 import android.util.Log
+import com.example.oilcollection.features.DashboardActivity
+import com.example.oilcollection.features.ListOfRequestsActivity
 import com.example.oilcollection.features.MyProfileActivity
 import com.example.oilcollection.features.SignInActivity
 import com.example.oilcollection.features.SignUpActivity
@@ -48,6 +50,11 @@ class Database {
                             activity.setupUi(loggedInUser)
                         }
                     }
+                    is DashboardActivity -> {
+                        if (loggedInUser != null) {
+                            activity.currentUser(loggedInUser)
+                        }
+                    }
                 }
             }
             .addOnFailureListener {
@@ -74,6 +81,24 @@ class Database {
             .addOnFailureListener { e ->
                 Log.e(TAG, "Error updating user details: ${e.message}")
                 callback(false)
+            }
+    }
+
+    fun loadAllUsersData(activity: ListOfRequestsActivity, callback: (List<User>) -> Unit) {
+        mDatabase.collection(Constants.USERS)
+            .get()
+            .addOnSuccessListener { querySnapshot ->
+                val userList = mutableListOf<User>()
+                for (document in querySnapshot.documents) {
+                    val user = document.toObject(User::class.java)
+                    if (user != null) {
+                        userList.add(user)
+                    }
+                }
+                callback(userList)
+            }
+            .addOnFailureListener { e ->
+                Log.e(activity.javaClass.simpleName, "Error loading user data: ${e.message}")
             }
     }
 

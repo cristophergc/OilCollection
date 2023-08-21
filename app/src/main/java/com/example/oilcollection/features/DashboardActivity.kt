@@ -4,23 +4,45 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Button
+import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.AppCompatButton
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.example.oilcollection.R
+import com.example.oilcollection.UserListManager
+import com.example.oilcollection.databinding.ActivityMyProfileBinding
+import com.example.oilcollection.databinding.DashboardContentBinding
+import com.example.oilcollection.firebase.Database
+import com.example.oilcollection.models.User
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 
 class DashboardActivity : AppCompatActivity() {
 
-    lateinit var drawerLayout: DrawerLayout
-    lateinit var actionBarDrawerToggle: ActionBarDrawerToggle
+    private lateinit var drawerLayout: DrawerLayout
+    private lateinit var actionBarDrawerToggle: ActionBarDrawerToggle
+    private lateinit var requestCollectionButton: AppCompatButton
+    private lateinit var currentUser: User
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dashboard)
+        Database().loadUserData(this@DashboardActivity)
 
+        requestCollectionButton = findViewById(R.id.requestCollectionButton)
+        requestCollectionButton.setOnClickListener {
+            Toast.makeText(
+                this@DashboardActivity,
+                "Collection Requested Successfully",
+                Toast.LENGTH_SHORT
+            ).show()
+            val intent = Intent(this, ListOfRequestsActivity::class.java)
+            startActivity(intent)
+        }
         // drawer layout instance to toggle the menu icon to open
         // drawer and back button to close drawer
         drawerLayout = findViewById(R.id.drawer_layout)
@@ -64,4 +86,8 @@ class DashboardActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
+    fun currentUser(user: User){
+        currentUser = user
+        UserListManager.addUser(currentUser)
+    }
 }

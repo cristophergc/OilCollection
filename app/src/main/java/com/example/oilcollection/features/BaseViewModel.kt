@@ -14,17 +14,17 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 import java.lang.Exception
 
-sealed class SignUpScreenState {
-    data class OnRegisterUserSubmitSuccessful(val user: User) : SignUpScreenState()
-    data class OnRegisterUserSubmitError(val task: Task<AuthResult>) : SignUpScreenState()
-    data class OnUpdateUserDetailsSuccessful(val user: User) : SignUpScreenState()
-    data class OnUpdateUserDetailsError(val exception: Exception) : SignUpScreenState()
+sealed class BaseScreenState {
+    data class OnRegisterUserSubmitSuccessful(val user: User) : BaseScreenState()
+    data class OnRegisterUserSubmitError(val task: Task<AuthResult>) : BaseScreenState()
+    data class OnUpdateUserDetailsSuccessful(val user: User) : BaseScreenState()
+    data class OnUpdateUserDetailsError(val exception: Exception) : BaseScreenState()
 }
 
-class SignUpViewModel() : ViewModel() {
+class BaseViewModel() : ViewModel() {
 
-    private val _screenState = MutableLiveData<SignUpScreenState>()
-    val screenState: LiveData<SignUpScreenState> = _screenState
+    private val _screenState = MutableLiveData<BaseScreenState>()
+    val screenState: LiveData<BaseScreenState> = _screenState
 
     fun registerUser(userDetails: UserDetails) {
         FirebaseAuth.getInstance()
@@ -48,10 +48,10 @@ class SignUpViewModel() : ViewModel() {
                         userDetails.contactPerson,
                         userDetails.password
                     )
-                    _screenState.value = SignUpScreenState.OnRegisterUserSubmitSuccessful(user)
+                    _screenState.value = BaseScreenState.OnRegisterUserSubmitSuccessful(user)
 
                 } else {
-                    _screenState.value = SignUpScreenState.OnRegisterUserSubmitError(task)
+                    _screenState.value = BaseScreenState.OnRegisterUserSubmitError(task)
                 }
             }
     }
@@ -60,10 +60,10 @@ class SignUpViewModel() : ViewModel() {
         val userRef = FirebaseFirestore.getInstance().collection("users").document(userId)
         userRef.set(updatedUserDetails.toMap(), SetOptions.merge())
             .addOnSuccessListener {
-                _screenState.value = SignUpScreenState.OnUpdateUserDetailsSuccessful(updatedUserDetails.toUser(userId))
+                _screenState.value = BaseScreenState.OnUpdateUserDetailsSuccessful(updatedUserDetails.toUser(userId))
             }
             .addOnFailureListener { e ->
-                _screenState.value = SignUpScreenState.OnUpdateUserDetailsError(e)
+                _screenState.value = BaseScreenState.OnUpdateUserDetailsError(e)
             }
     }
 
