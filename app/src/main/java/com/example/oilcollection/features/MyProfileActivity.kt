@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.lifecycle.Observer
 import com.example.oilcollection.databinding.ActivityMyProfileBinding
 import com.example.oilcollection.features.model.UserDetails
 import com.example.oilcollection.firebase.Database
@@ -14,7 +13,7 @@ import com.example.oilcollection.models.User
 
 class MyProfileActivity : AppCompatActivity() {
     private var binding: ActivityMyProfileBinding? = null
-    private val viewModel by viewModels<SignUpViewModel>()
+    private val viewModel by viewModels<BaseViewModel>()
     private lateinit var currentUser: User
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -89,7 +88,7 @@ class MyProfileActivity : AppCompatActivity() {
     private fun setupObservers() {
         viewModel.screenState.observe(this) { screenState ->
             when (screenState) {
-                is SignUpScreenState.OnUpdateUserDetailsSuccessful -> {
+                is BaseScreenState.OnUpdateUserDetailsSuccessful -> {
                     val intent = Intent(this, DashboardActivity::class.java)
                     startActivity(intent)
                     Toast.makeText(
@@ -99,7 +98,7 @@ class MyProfileActivity : AppCompatActivity() {
                     ).show()
                 }
 
-                is SignUpScreenState.OnUpdateUserDetailsError -> {
+                is BaseScreenState.OnUpdateUserDetailsError -> {
                     Toast.makeText(
                         this@MyProfileActivity,
                         "Failed to update user details",
